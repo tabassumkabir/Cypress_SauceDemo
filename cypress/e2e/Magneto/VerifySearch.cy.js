@@ -1,6 +1,7 @@
 ///<reference types="cypress"/>
 ///<reference types="cypress-xpath"/>
 
+
 describe('Verify Search',()=>{
 
     const url="https://magento.softwaretestingboard.com/what-is-new.html"
@@ -19,7 +20,7 @@ describe('Verify Search',()=>{
 
     it.only ('Create an account',()=>{
 
-        const randomEmail = Cypress.generateRandomEmail(); 
+        const randomEmail = Math.random().toString(36).substring(2,15)+"@gmail.com"
         //visit url 
         cy.visit(url)
         //click on create account
@@ -31,7 +32,7 @@ describe('Verify Search',()=>{
         //lastname 
         cy.get("#lastname").type("Demo")
         //email
-        cy.get("#email_address").type("randomEmail")
+        cy.get("#email_address").type(randomEmail)
         //pass
         cy.get("#password").type("123QWabc@")
         //confirm pass
@@ -39,8 +40,9 @@ describe('Verify Search',()=>{
         //click on create account
         cy.get("button[title='Create an Account'] span").click()
         cy.wait(3000)
-        cy.get('.message-success > div').should("include",'Thank you for registering with Main Website Store.'
-        )
+        //assertion 
+        cy.contains("Thank you for registering with Main Website Store.")
+        
 
     })
 })

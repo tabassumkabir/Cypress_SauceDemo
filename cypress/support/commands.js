@@ -54,7 +54,3 @@ Cypress.Commands.add('login',(username,password)=>{
 
 })
 
-const faker = require('faker');
-Cypress.Commands.add('generateRandomEmail', () => {
-  return faker.internet.email();
-});
