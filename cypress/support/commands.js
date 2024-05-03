@@ -26,6 +26,8 @@
 
 ///<reference types="cypress"/>
 
+
+
 Cypress.Commands.add('login',(username,password)=>{
 
     cy.session([username,password],()=>{
@@ -51,3 +53,8 @@ Cypress.Commands.add('login',(username,password)=>{
     
 
 })
+
+const faker = require('faker');
+Cypress.Commands.add('generateRandomEmail', () => {
+  return faker.internet.email();
+});
