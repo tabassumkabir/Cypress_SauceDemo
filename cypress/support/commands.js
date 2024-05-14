@@ -28,7 +28,7 @@
 
 
 
-Cypress.Commands.add('login',(username,password)=>{
+/*Cypress.Commands.add('login',(username,password)=>{
 
     cy.session([username,password],()=>{
 
@@ -47,10 +47,36 @@ Cypress.Commands.add('login',(username,password)=>{
 
 
 
+    })*/
+
+Cypress.Commands.add('login',(email,password)=>{
+
+    cy.session([email,password],()=>{
+
+    //visit url
+    cy.visit("https://magento.softwaretestingboard.com/what-is-new.html")
+
+    //click on sign in 
+    cy.xpath("(//a[contains(text(),'Sign In')])[1]").click()
+
+    //wait
+    cy.wait(3000)
+
+    
+    //email
+    cy.get("#email").type(email)
+    //password
+    cy.xpath("(//input[@id='pass'])[1]").type(password)
+    //click on sign in 
+    cy.xpath("(//span[contains(text(),'Sign In')])[1]").click()
+
+    cy.wait(5000)
+
     })
+})
 
 
     
 
-})
+
 

@@ -3,46 +3,71 @@
 
 
 describe('Verify Search',()=>{
-
     const url="https://magento.softwaretestingboard.com/what-is-new.html"
 
-    it('verify search',()=>{
+      beforeEach('login',()=>{
+
+        cy.login("tabassumkabir123@gmail.com","Gallianfg123@")
+      })  
+
+    it('Checkout Journey',()=>{
 
         //visit url 
         cy.visit(url)
         //verify search 
-        cy.get("#search").type("shirts for women,{enter}")
+        cy.get("#search").type("shirts for women , {enter}")
+        //click on item 
+        cy.get("img[alt='Chloe Compete Tank']").click()
+        cy.wait(3000)
+        //click on size 
+        cy.get('#option-label-size-143-item-166').click()
+        //click on color red
+        cy.get("#option-label-color-93-item-58").click()
+        //add quantity
+        cy.get('#qty').type("2")
+        cy.wait(3000)
+        //click on add to cart 
+        cy.get('#product-addtocart-button').click()
+        cy.wait(3000)
+        //click on cart 
+        cy.get('.action.showcart').click()
+
+        cy.wait(4000)
+        //click on proceed to checkout 
+        cy.get('#top-cart-btn-checkout').click()
+        cy.wait(7000)
+
+      
+        //company
+        cy.get("[name^='company']").type("ddf")
+        //address 
+        cy.get("[name='street[0]']").type("dddfff")
+        //city
+        cy.get("[name='city']").type("Mohammadpur, dhaka")
+        //postcode 
+        cy.get("[name='postcode']").type("1206")
+        //state 
+        cy.get("[name='region_id']").select("Florida")
+        //country 
+        cy.get("[name='country_id']").select("Bangladesh")
+        
+        //phone number
+        cy.get("[name='telephone']").type("234325435")
+        //shipping method
+        cy.get('tbody > :nth-child(1) > :nth-child(1)').click()
+        //click next 
+        cy.get(".button.action.continue.primary").click({force :true})
+        cy.wait(6000)
+
+        
+
     
        
         
         
     })
+    
 
-    it.only ('Create an account',()=>{
-
-        const randomEmail = Math.random().toString(36).substring(2,15)+"@gmail.com"
-        //visit url 
-        cy.visit(url)
-        //click on create account
-        
-        cy.xpath("//div[@class='panel header']//a[normalize-space()='Create an Account']").click()
-        cy.wait(3000)
-        //First name 
-        cy.get("#firstname").type("Test")
-        //lastname 
-        cy.get("#lastname").type("Demo")
-        //email
-        cy.get("#email_address").type(randomEmail)
-        //pass
-        cy.get("#password").type("123QWabc@")
-        //confirm pass
-        cy.get('#password-confirmation').type("123QWabc@")
-        //click on create account
-        cy.get("button[title='Create an Account'] span").click()
-        cy.wait(3000)
-        //assertion 
-        cy.contains("Thank you for registering with Main Website Store.")
-        
-
-    })
+    
+    
 })
